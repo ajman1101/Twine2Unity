@@ -1,0 +1,26 @@
+﻿:: Start
+[[I am Hungry|1]]
+
+I have not eaten in a week.
+
+
+:: 1
+[[I walk to the store.|2]]
+
+
+:: 2
+[[I buy a bagel.|3]]
+
+
+:: 3
+And eat it.
+
+
+:: StoryTitle
+A Simple Story
+
+
+:: StoryAuthor
+Me
+
+
