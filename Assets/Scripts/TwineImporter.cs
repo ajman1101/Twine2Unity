@@ -6,18 +6,25 @@ using System.IO;
 public class TwineImporter : MonoBehaviour {
 
 	// Use this for initialization
-	public bool listedAll;
-	public string[] file;
 	public List <string> twineInfo;
 	
 	void Start () 
 	{
-		listedAll = false;
 		string path = Application.dataPath + @"\TwineFiles\simple.txt";
+
+        twineInfo = ReadTwineData(path);
+
+        //ShowTwineData(twineInfo);
+
+        ParseTwineData(twineInfo);
+	}
+	
+	List <string> ReadTwineData(string path)
+	{
 		string temp;
 		string [] file;
-
-        try 
+		
+		try 
         {
         	//create a stream reader
         	//get the data in the text file
@@ -32,31 +39,59 @@ public class TwineImporter : MonoBehaviour {
         	{
         		twineInfo.Add(s);
         	}
+        	return twineInfo;
         } 
 
         catch (FileNotFoundException e) 
         {
             Debug.Log("The process failed: {0}"+ e.ToString());
-        }
+            return null;
+        }  
+	}
 
-        if(listedAll == false)
+	void ShowTwineData(List <string> data)
+	{
+		bool listedAll = false;
+
+		if(listedAll == false)
 		{
-			for(int i = 0; i < twineInfo.Count; i++)
+			for(int i = 0; i < data.Count; i++)
 			{
-				if(i == twineInfo.Count)
+				if(i == data.Count)
 				{
 					listedAll = true;
 				}
 
-				Debug.Log(twineInfo[i]);
+				Debug.Log(data[i]);
 			}
 		}
 	}
-	
+
+	void ParseTwineData(List <string> data)
+	{
+		for(int i = 0; i < data.Count; i++)
+		{
+			if(data[i].IndexOf("[[") != -1)
+			{
+				Debug.Log("Link: "+data[i]);
+			}
+			if(data[i].Length == 0)
+			{
+				Debug.Log("Blank: "+data[i]);
+			}
+			if(data[i].IndexOf("::") != -1)
+			{
+				Debug.Log("Start of Passage: "+data[i]);
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
 
 		
 	}
+
+
 }
