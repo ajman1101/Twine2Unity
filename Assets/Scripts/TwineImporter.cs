@@ -73,7 +73,14 @@ public class TwineImporter : MonoBehaviour {
 		{
 			if(data[i].IndexOf("[[") != -1)
 			{
-				Debug.Log("Link: "+data[i]);
+				int startTitle = data[i].IndexOf("[[")+2;
+				int endTitle = data[i].IndexOf("|");
+				string title = data[i].Substring(startTitle, endTitle -startTitle);
+				int startLink = data[i].IndexOf("|")+1;
+				int endLink = data[i].IndexOf("]]");
+				string link = data[i].Substring(startLink, endLink - startLink);
+				Debug.Log("Title: "+title +"\n Link: "+ link);
+				//Debug.Log("Link: "+data[i]);
 			}
 			if(data[i].Length == 0)
 			{
@@ -81,7 +88,13 @@ public class TwineImporter : MonoBehaviour {
 			}
 			if(data[i].IndexOf("::") != -1)
 			{
-				Debug.Log("Start of Passage: "+data[i]);
+				int startPassage = data[i].IndexOf("::")+2;
+				string passage = data[i].Substring(startPassage);
+				Debug.Log("Start of Passage: "+passage);
+			}
+			else
+			{
+				string content = data[i]; 
 			}
 		}
 	}
