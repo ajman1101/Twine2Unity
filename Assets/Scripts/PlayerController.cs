@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     int pX = 1;
     int pY = 1;
 
+    public int X { get { return pX; } }
+    public int Y { get { return pY; } }
+
     void Start()
     {
         grid = FindObjectOfType<Grid>();
@@ -87,6 +90,28 @@ public class PlayerController : MonoBehaviour
                 pY++;
                 grid.OccupySpace(pX, pY);
                 transform.position = grid.PositionAtSpace(pX, pY);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && grid.Enemies.Count > 0)
+        {
+            // Grab the first enemy in sight
+            var enemiesInSight = grid.Enemies
+                .Select(gO => gO.GetComponent<Enemy>())
+                .Where(e => e.Y == Y)
+                .OrderByDescending(e => e.Y)
+                .ToArray();
+
+            if (enemiesInSight.Length == 0)
+                return;
+
+            // Destroy them and remove them from the enemy list
+            grid.Enemies.Remove(enemiesInSight.First().gameObject);
+            Destroy(enemiesInSight.First().gameObject);
+
+            if (grid.Enemies.Count == 0 && grid.IsLastLevel())
+            {
+                Debug.Log("You win");
             }
         }
 

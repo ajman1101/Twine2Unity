@@ -6,25 +6,18 @@ using System.IO;
 public class TwineImporter : MonoBehaviour {
 
 	// Use this for initialization
+	public bool listedAll;
+	public string[] file;
 	public List <string> twineInfo;
 	
 	void Start () 
 	{
+		listedAll = false;
 		string path = Application.dataPath + @"\TwineFiles\simple.txt";
-
-        twineInfo = ReadTwineData(path);
-
-        //ShowTwineData(twineInfo);
-
-        ParseTwineData(twineInfo);
-	}
-	
-	List <string> ReadTwineData(string path)
-	{
 		string temp;
 		string [] file;
-		
-		try 
+
+        try 
         {
         	//create a stream reader
         	//get the data in the text file
@@ -39,72 +32,31 @@ public class TwineImporter : MonoBehaviour {
         	{
         		twineInfo.Add(s);
         	}
-        	return twineInfo;
         } 
 
         catch (FileNotFoundException e) 
         {
             Debug.Log("The process failed: {0}"+ e.ToString());
-            return null;
-        }  
-	}
+        }
 
-	void ShowTwineData(List <string> data)
-	{
-		bool listedAll = false;
-
-		if(listedAll == false)
+        if(listedAll == false)
 		{
-			for(int i = 0; i < data.Count; i++)
+			for(int i = 0; i < twineInfo.Count; i++)
 			{
-				if(i == data.Count)
+				if(i == twineInfo.Count)
 				{
 					listedAll = true;
 				}
 
-				Debug.Log(data[i]);
+				Debug.Log(twineInfo[i]);
 			}
 		}
 	}
-
-	void ParseTwineData(List <string> data)
-	{
-		for(int i = 0; i < data.Count; i++)
-		{
-			if(data[i].IndexOf("[[") != -1)
-			{
-				int startTitle = data[i].IndexOf("[[")+2;
-				int endTitle = data[i].IndexOf("|");
-				string title = data[i].Substring(startTitle, endTitle -startTitle);
-				int startLink = data[i].IndexOf("|")+1;
-				int endLink = data[i].IndexOf("]]");
-				string link = data[i].Substring(startLink, endLink - startLink);
-				Debug.Log("Title: "+title +"\n Link: "+ link);
-				//Debug.Log("Link: "+data[i]);
-			}
-			if(data[i].Length == 0)
-			{
-				Debug.Log("Blank: "+data[i]);
-			}
-			if(data[i].IndexOf("::") != -1)
-			{
-				int startPassage = data[i].IndexOf("::")+2;
-				string passage = data[i].Substring(startPassage);
-				Debug.Log("Start of Passage: "+passage);
-			}
-			else
-			{
-				string content = data[i]; 
-			}
-		}
-	}
-
+	
 	// Update is called once per frame
 	void Update ()
 	{
 
 		
 	}
-
-
 }
