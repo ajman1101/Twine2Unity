@@ -38,25 +38,24 @@ public class TwineNode{
                 int endLink = data.IndexOf("]]");
                 link = data.Substring(startLink, endLink - startLink);
                 Debug.Log("Title: " + title + "\n Link: " + link);
-                Debug.Log("Data: "+data);
             }
-            if (data.Length == 0)
+        if (data.Length == 0)
             {
                 Debug.Log("Blank: " + data);
             }
-            if (data.IndexOf("::") != -1)
+        if (data.IndexOf("::") != -1)
             {
                 int startPassage = data.IndexOf("::") + 2;
                 passage = data.Substring(startPassage);
                 Debug.Log("Start of Passage: " + passage);
             }
-            else
+        else if (data.IndexOf("[[") == -1 && data.Length != 0)
             {
             	content = data;
             	Debug.Log("Content: "+content);
             }
             
-            return  this;
+    	return  this;
 	}
 
 	// public void NextNode(List <TwineNode> Data)
