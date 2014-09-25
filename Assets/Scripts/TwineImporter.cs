@@ -11,15 +11,18 @@ public class TwineImporter : MonoBehaviour
 
     List<TwineNode> twineData = new List<TwineNode>();
 
+    public TwineData data;
+
     void Start()
     {
         string path = Application.dataPath + @"\TwineFiles\simple.txt";
 
         twineInfo = ReadTwineData(path);
 
+        data = new TwineData(twineInfo);
         //ShowTwineData(twineInfo);
 
-        ParseTwineData(twineInfo);
+        //ParseTwineData(twineInfo);
     }
 
     List<string> ReadTwineData(string path)
@@ -52,7 +55,7 @@ public class TwineImporter : MonoBehaviour
         }
     }
 
-    void ShowTwineData(List<string> data)
+    void ShowTwineData(List <string> data)
     {
         bool listedAll = false;
 
@@ -72,36 +75,7 @@ public class TwineImporter : MonoBehaviour
 
     void ParseTwineData(List<string> data)
     {
-        for (int i = 0; i < data.Count; i++)
-        {
-        	TwineNode twineNode = new TwineNode();
-        	twineData.Add(twineNode.Parse(data[i]));
-            // if (data[i].IndexOf("[[") != -1)
-            // {
-            //     int startTitle = data[i].IndexOf("[[") + 2;
-            //     int endTitle = data[i].IndexOf("|");
-            //     string title = data[i].Substring(startTitle, endTitle - startTitle);
-            //     int startLink = data[i].IndexOf("|") + 1;
-            //     int endLink = data[i].IndexOf("]]");
-            //     string link = data[i].Substring(startLink, endLink - startLink);
-            //     Debug.Log("Title: " + title + "\n Link: " + link);
-            //     Debug.Log("Link: "+data[i]);
-            // }
-            // if (data[i].Length == 0)
-            // {
-            //     Debug.Log("Blank: " + data[i]);
-            // }
-            // if (data[i].IndexOf("::") != -1)
-            // {
-            //     int startPassage = data[i].IndexOf("::") + 2;
-            //     string passage = data[i].Substring(startPassage);
-            //     Debug.Log("Start of Passage: " + passage);
-            // }
-            // else
-            // {
-            //     string content = data[i];
-            // }
-        }
+    	TwineData allData = new TwineData(data);
     }
 
     // Update is called once per frame

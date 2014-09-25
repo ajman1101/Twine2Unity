@@ -38,7 +38,7 @@ public class TwineNode{
                 int endLink = data.IndexOf("]]");
                 link = data.Substring(startLink, endLink - startLink);
                 Debug.Log("Title: " + title + "\n Link: " + link);
-                Debug.Log("Link: "+data);
+                Debug.Log("Data: "+data);
             }
             if (data.Length == 0)
             {
