@@ -9,13 +9,13 @@ public class TwineImporter : MonoBehaviour
     // Use this for initialization
     public List<string> twineInfo;
 
-    List<TwineNode> twineData = new List<TwineNode>();
+    public List<TwineNode> twineData = new List<TwineNode>();
 
     public TwineData data;
 
     void Start()
     {
-        string path = Application.dataPath + @"\TwineFiles\simple.txt";
+        string path = Application.dataPath + @"\TwineFiles\dialogue.txt";
 
         twineInfo = ReadTwineData(path);
 

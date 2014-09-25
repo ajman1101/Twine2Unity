@@ -38,3 +38,4 @@ ProjectSettings/QualitySettings.asset
 ProjectSettings/TagManager.asset
 ProjectSettings/TimeManager.asset
 Twine2Unity.sublime-workspace
+*.meta

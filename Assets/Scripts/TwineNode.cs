@@ -52,8 +52,32 @@ public class TwineNode{
             }
             else
             {
-                content = data;
+            	content = data;
+            	Debug.Log("Content: "+content);
             }
+            
             return  this;
 	}
+
+	// public void NextNode(List <TwineNode> Data)
+	// {
+	// 	for(int i = 0; i > Data.Count; i++)
+	// 	{
+	// 		if(Data.Current.Link == Data[i].Title)
+	// 		{
+	// 			Data.Current = Data[i];
+	// 		}
+	// 	}
+	// }
+
+	// public void NextNode(List <TwineNode> Data, string link)
+	// {
+	// 	for(int i = 0; i >Data.Count; i++)
+	// 	{
+	// 		if(Data[i].link == link)
+	// 		{
+	// 			Data.Current = Data[i];
+	// 		}
+	// 	}
+	// }
 }
