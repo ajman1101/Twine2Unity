@@ -25,7 +25,7 @@ public class TwineImporter : MonoBehaviour
         //ParseTwineData(twineInfo);
     }
 
-    List<string> ReadTwineData(string path)
+    public List<string> ReadTwineData(string path)
     {
         string temp;
         string[] file;
