@@ -52,6 +52,13 @@ public class TwineNode1
 
 	public string NextPassage {get{return nextPassage;} set{nextPassage = value;}}
 
+	public TwineNode1()
+	{
+		passage = "";
+		content = "";
+		nextPassage = "";
+	}
+
 	public TwineNode1(string data)
 	{
 		if (data.IndexOf("[[") != -1)
@@ -62,7 +69,7 @@ public class TwineNode1
                 int startLink = data.IndexOf("|") + 1;
                 int endLink = data.IndexOf("]]");
                 links.Add(data.Substring(startLink, endLink - startLink));
-                Debug.Log("Title: " + title + "\n Link: " + link);
+                Debug.Log("Title: " + linkTitles[0] + "\n Link: " + links[0]);
             }
         if (data.Length == 0)
             {

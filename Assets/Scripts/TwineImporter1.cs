@@ -8,6 +8,7 @@ public class TwineImporter1
 
     // Use this for initialization
     List<string> twineData = new List<string>();
+    TwineData1 twineInfo;
 
     public TwineImporter1()
     {
@@ -42,7 +43,6 @@ public class TwineImporter1
         catch (FileNotFoundException e)
         {
             Debug.Log("The process failed: {0}" + e.ToString());
-            return null;
         }
     }
 
@@ -56,12 +56,7 @@ public class TwineImporter1
 
     public void ParseTwineData(List<string> data)
     {
-    	for (int i = 0; i < data.Count; i++)
-        {
-            TwineNode twineNode = new TwineNode();
-            twineData.Add(twineNode.Parse(rawData[i]));
-        }
-        current = twineData[0];
+    	twineInfo = new TwineData1(data);
     }
 
     // Update is called once per frame
