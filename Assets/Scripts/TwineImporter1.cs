@@ -3,19 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-public class TwineImporter1 
+public class TwineImporter1 : MonoBehaviour
 {
 
     // Use this for initialization
     List<string> twineData = new List<string>();
     TwineData1 twineInfo;
+    string path =  "/TwineFiles/dialogue.txt";
+
+    public void Start()
+    {
+        path = Application.dataPath + path;
+        ReadTwineData(path);
+        twineInfo = new TwineData1(twineData);
+        //ShowTwineData(twineData);
+    }
 
     public TwineImporter1()
     {
-        string path = Application.dataPath + @"\Resources\dialogue.txt";
-        ReadTwineData(path);
-        ShowTwineData(twineData);
-
+        
     }
 
     public void ReadTwineData(string path)

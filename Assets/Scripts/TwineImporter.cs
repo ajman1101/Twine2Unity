@@ -20,6 +20,7 @@ public class TwineImporter : MonoBehaviour
         twineInfo = ReadTwineData(path);
 
         data = new TwineData(twineInfo);
+
         //ShowTwineData(twineInfo);
 
         //ParseTwineData(twineInfo);

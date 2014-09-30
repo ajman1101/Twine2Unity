@@ -73,7 +73,7 @@ public class TwineNode1
             }
         if (data.Length == 0)
             {
-                Debug.Log("Blank: " + data);
+               // Debug.Log("Blank: " + data);
             }
         if (data.IndexOf("::") != -1)
             {

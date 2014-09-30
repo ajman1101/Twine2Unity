@@ -11,6 +11,7 @@ public class TwineData1
 	{
 		for(int i = 0; i < data.Count; i++)
 		{
+			Debug.Log("Node "+i);
 			TwineNode1 twineNode = new TwineNode1(data[i]);
 			Data.Add(twineNode);
 
