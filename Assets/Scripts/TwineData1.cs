@@ -5,12 +5,13 @@ using System.Collections.Generic;
 public class TwineData1
 {
 	public List<TwineNode1> Data = new List<TwineNode1>();
-	TwineNode1 current;
+	TwineNode1 current = new TwineNode1();
 
 	public TwineData1(List <string> data)
 	{
 		for(int i = 0; i < data.Count; i++)
 		{
+			Debug.Log("Node "+i);
 			TwineNode1 twineNode = new TwineNode1(data[i]);
 			Data.Add(twineNode);
 
@@ -26,7 +27,7 @@ public class TwineData1
 	{
 		for(int i =0; i > Data.Count; i++)
 		{
-			if(current.Link == Data[i].Passage)
+			if(current.Link() == Data[i].Passage)
 			{
 				current = Data[i];
 			}

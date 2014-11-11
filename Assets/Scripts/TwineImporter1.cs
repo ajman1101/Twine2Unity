@@ -2,27 +2,32 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System;
 
-public class TwineImporter1 
+public class TwineImporter1 : MonoBehaviour
 {
 
     // Use this for initialization
     List<string> twineData = new List<string>();
+    TwineData1 twineInfo;
+    string path =  "/TwineFiles/dialogue.txt";
+
+    public void Start()
+    {
+        path = Application.dataPath + path;
+        ReadTwineData(path);
+        twineInfo = new TwineData1(twineData);
+        //ShowTwineData(twineData);
+    }
 
     public TwineImporter1()
     {
-        string path = Application.dataPath + @"\Resources\dialogue.txt";
-        ReadTwineData(path);
-        ShowTwineData(twineData);
-
+        
     }
 
     public void ReadTwineData(string path)
     {
         string temp;
         string[] file;
-		string[] split = {"::"};
 
         try
         {
@@ -34,7 +39,7 @@ public class TwineImporter1
             sr.Close();
 
             //parse large string by lines into an list
-			file = temp.Split(split, StringSplitOptions.RemoveEmptyEntries);
+            file = temp.Split("::"[0]);
             foreach (string s in file)
             {
                 twineData.Add(s);
@@ -44,7 +49,6 @@ public class TwineImporter1
         catch (FileNotFoundException e)
         {
             Debug.Log("The process failed: {0}" + e.ToString());
-            return;
         }
     }
 
@@ -56,16 +60,10 @@ public class TwineImporter1
         }
     }
 
-	/*
     public void ParseTwineData(List<string> data)
     {
-    	for (int i = 0; i < data.Count; i++)
-        {
-            TwineNode1 twineNode = new TwineNode1(data[i]);
-			//twineData.Add(twineNode.Parse(rawData[i]));
-        }
-		//current = twineData[0];
-    }*/
+    	twineInfo = new TwineData1(data);
+    }
 
     // Update is called once per frame
     void Update()
