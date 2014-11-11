@@ -13,7 +13,7 @@ public class TwineImporter1 : MonoBehaviour
 
     public void Start()
     {
-        path = Application.dataPath + path;
+        path = Application.dataPath + path; // path = "your file path"
         ReadTwineData(path);
         twineInfo = new TwineData1(twineData);
         //ShowTwineData(twineData);
@@ -28,6 +28,7 @@ public class TwineImporter1 : MonoBehaviour
     {
         string temp;
         string[] file;
+		string[] split = {"::"};
 
         try
         {
@@ -39,7 +40,7 @@ public class TwineImporter1 : MonoBehaviour
             sr.Close();
 
             //parse large string by lines into an list
-            file = temp.Split("::"[0]);
+            file = temp.Split(split, StringSplitOptions.RemoveEmptyEntries);
             foreach (string s in file)
             {
                 twineData.Add(s);
@@ -49,6 +50,7 @@ public class TwineImporter1 : MonoBehaviour
         catch (FileNotFoundException e)
         {
             Debug.Log("The process failed: {0}" + e.ToString());
+			return;
         }
     }
 
@@ -60,10 +62,12 @@ public class TwineImporter1 : MonoBehaviour
         }
     }
 
+	/*
     public void ParseTwineData(List<string> data)
     {
     	twineInfo = new TwineData1(data);
     }
+	*/
 
     // Update is called once per frame
     void Update()
