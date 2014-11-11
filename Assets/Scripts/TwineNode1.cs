@@ -13,51 +13,47 @@ public class TwineNode1
 	public string Passage {get{return passage;} set{passage = value;}}
 	public string Content {get{return content;} set{content = value;}}
 	
-	public string LinkTitle(string data) 
+	public string LinkTitle 
 	{
-		get:
+		get
 		{
 			foreach(string s in linkTitles)
-			{
+			{/*
 				if(s == data)
 				{
 					return s;
-				}
+				}*/
+				return s;
 			}
 			return null;
 		}
 	}
 
+	/*
 	public string Link()
 	{
 		get:
 		{
 			return links[0];
 		}
-	}
+	}*/
 
-	public string Link(string data)
+	public string Link
 	{
-		get:{
+		get{
 			foreach(string s in links)
-			{
+			{/*
 				if(s == data)
 				{
 					return s;
-				}
+				}*/
+				return s;
 			}
 			return null;
 		}
 	}
 
 	public string NextPassage {get{return nextPassage;} set{nextPassage = value;}}
-
-	public TwineNode1()
-	{
-		passage = "";
-		content = "";
-		nextPassage = "";
-	}
 
 	public TwineNode1(string data)
 	{
@@ -69,11 +65,11 @@ public class TwineNode1
                 int startLink = data.IndexOf("|") + 1;
                 int endLink = data.IndexOf("]]");
                 links.Add(data.Substring(startLink, endLink - startLink));
-                Debug.Log("Title: " + linkTitles[0] + "\n Link: " + links[0]);
+                Debug.Log("Title: " + LinkTitle + "\n Link: " + Link);
             }
         if (data.Length == 0)
             {
-               // Debug.Log("Blank: " + data);
+                Debug.Log("Blank: " + data);
             }
         if (data.IndexOf("::") != -1)
             {
