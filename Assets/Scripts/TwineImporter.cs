@@ -2,82 +2,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
-public class TwineImporter : MonoBehaviour
+public class TwineImporter
 {
 
     // Use this for initialization
-    public List<string> twineInfo;
+    List<string> twineDataList = new List<string>();
+	TwineData twineData;
 
-    public List<TwineNode> twineData = new List<TwineNode>();
-
-    public TwineData data;
-
-    void Start()
+    public TwineImporter()
     {
-        string path = Application.dataPath + @"\TwineFiles\dialogue.txt";
-
-        twineInfo = ReadTwineData(path);
-
-        data = new TwineData(twineInfo);
-
-        //ShowTwineData(twineInfo);
-
-        //ParseTwineData(twineInfo);
+        //string path = Application.dataPath + @"/Resources/dialogue.txt";
+        ReadTwineData();
+        //ShowTwineData(twineData);
+		ParseTwineData(twineDataList);
     }
 
-    public List<string> ReadTwineData(string path)
-    {
+    public void ReadTwineData()
+	{
         string temp;
         string[] file;
+		string[] split = {"::"};
+
+		temp = Resources.Load("dialogueNew", typeof(TextAsset)).ToString();
 
         try
         {
             //create a stream reader
             //get the data in the text file
             //close the stream reader
-            StreamReader sr = new StreamReader(path);
-            temp = sr.ReadToEnd();
-            sr.Close();
+            //StreamReader sr = new StreamReader(path);
+            //temp = sr.ReadToEnd();
+            //sr.Close();
 
             //parse large string by lines into an list
-            file = temp.Split("\n"[0]);
+			file = temp.Split(split, StringSplitOptions.RemoveEmptyEntries);
             foreach (string s in file)
             {
-                twineInfo.Add(s);
+                twineDataList.Add("::" + s);
             }
-            return twineInfo;
         }
 
         catch (FileNotFoundException e)
         {
             Debug.Log("The process failed: {0}" + e.ToString());
-            return null;
+            return;
         }
     }
 
     void ShowTwineData(List <string> data)
     {
-        bool listedAll = false;
-
-        if (listedAll == false)
+        for (int i = 0; i < data.Count; i++)
         {
-            for (int i = 0; i < data.Count; i++)
-            {
-                if (i == data.Count)
-                {
-                    listedAll = true;
-                }
-
-                Debug.Log(data[i]);
-            }
+            Debug.Log("Data Set "+i+": "+ data[i]);
         }
     }
 
-    void ParseTwineData(List<string> data)
+	public void ParseTwineData(List<string> data)
     {
-    	TwineData allData = new TwineData(data);
+    	/*for (int i = 0; i < data.Count; i++)
+        {
+			TwineNode twineNode = new TwineNode(data[i], ':');
+			twineNodes[i] = twineNode;
+        }
+		//current = twineData[0];
+		twineData.current = twineNodes [0];*/
+		string[] split = {":","\r\n"};
+		twineData = new TwineData(data, split);
     }
+
+	public TwineData TwineData
+	{
+		get
+		{
+			return twineData;
+		}
+	}
 
     // Update is called once per frame
     void Update()
