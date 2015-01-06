@@ -1,71 +1,86 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TwineData{
-
-	public TwineNode current = new TwineNode();
-
-	public TwineNode Current {get{return current;} set{current = value;}}
-
+public class TwineData
+{
 	public List<TwineNode> Data = new List<TwineNode>();
+	TwineNode current;
 
- 	public TwineData(List <string> rawData)
+	public TwineData(List <string> data)
 	{
-		for (int i = 0; i < rawData.Count; i++)
-        {
-        	TwineNode twineNode = new TwineNode();
-        	Data.Add(twineNode.Parse(rawData[i]));
-        }
-        current = Data[0];
+		for(int i = 0; i < data.Count; i++)
+		{
+			TwineNode twineNode = new TwineNode(data[i]);
+			Data.Add(twineNode);
+
+			if(i == 0)
+			{
+				current = twineNode;
+			}
+		}
+	}
+	public TwineData(List <string> data, string[] split)
+	{
+		for(int i = 0; i < data.Count; i++)
+		{
+			TwineNode twineNode = new TwineNode(data[i], split);
+			Data.Add(twineNode);
+			
+			if(i == 0)
+			{
+				current = twineNode;
+			}
+		}
 	}
 
-	 void ShowTwineData(List <string> data)
-    {
-        bool listedAll = false;
-
-        if (listedAll == false)
-        {
-            for (int i = 0; i < Data.Count; i++)
-            {
-                if (i == Data.Count)
-                {
-                    listedAll = true;
-                }
-
-                Debug.Log(Data[i]);
-            }
-        }
-    }
-
-    	public void NextNode()
+	//go to next node
+	public void NextNode()
 	{
-		for(int i = 0; i > Data.Count; i++)
+		for(int i = 0; i < Data.Count; i++)
 		{
-			if(current.Link == Data[i].Title)
+			if(current.LinkData == Data[i].Passage)
 			{
 				current = Data[i];
 			}
 		}
 	}
 
+	//go to specific node
 	public void NextNode(string link)
 	{
-		for(int i = 0; i >Data.Count; i++)
+		for(int i = 0; i < Data.Count; i++)
 		{
-			if(Data[i].Link == link)
+            /*try
+            {
+                if (Int32.Parse(link) == Int32.Parse(Data[i].Passage))
+                {
+					current = Data[i];
+                    break;
+                }
+            }
+			catch
+			{
+
+			}*/
+			if(link.Trim() == Data[i].Passage.Trim())
 			{
 				current = Data[i];
+				break;
 			}
 		}
 	}
 
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public TwineNode Current
+	{
+		get
+		{
+			return current;
+		}
+		set
+		{
+			current = value;
+		}
 	}
 }
