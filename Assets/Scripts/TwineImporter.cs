@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Takes the input from a twine file, splits it into pieces and saves it into a linked list
+ * This linked list consists of TwineNodes, and is saved inside of TwineData
+ *
+ */
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,12 +19,11 @@ public class TwineImporter
 
     public TwineImporter()
     {
-        //string path = Application.dataPath + @"/Resources/dialogue.txt";
         ReadTwineData();
-        //ShowTwineData(twineData);
 		ParseTwineData(twineDataList);
     }
-
+    
+    // Loads in the data from the Entweedle(Story format used to get correct formatting) File
     public void ReadTwineData()
 	{
         string temp;
@@ -29,15 +34,9 @@ public class TwineImporter
 
         try
         {
-            //create a stream reader
-            //get the data in the text file
-            //close the stream reader
-            //StreamReader sr = new StreamReader(path);
-            //temp = sr.ReadToEnd();
-            //sr.Close();
-
             //parse large string by lines into an list
 			file = temp.Split(split, StringSplitOptions.RemoveEmptyEntries);
+            // the :: is still needed for splitting in the Node
             foreach (string s in file)
             {
                 twineDataList.Add("::" + s);
@@ -58,17 +57,12 @@ public class TwineImporter
             Debug.Log("Data Set "+i+": "+ data[i]);
         }
     }
-
+    
+    // Create a TwineData object
+    // We've used a split to split the speaker off from the rest of the content
 	public void ParseTwineData(List<string> data)
     {
-    	/*for (int i = 0; i < data.Count; i++)
-        {
-			TwineNode twineNode = new TwineNode(data[i], ':');
-			twineNodes[i] = twineNode;
-        }
-		//current = twineData[0];
-		twineData.current = twineNodes [0];*/
-		string[] split = {":","\r\n"};
+    	string[] split = {":","\r\n"};
 		twineData = new TwineData(data, split);
     }
 
@@ -79,13 +73,6 @@ public class TwineImporter
 			return twineData;
 		}
 	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-    }
 
 
 }
