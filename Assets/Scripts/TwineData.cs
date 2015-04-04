@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+ * A linked list to hold TwineNodes and keep track of which one is the current Node
+ *
+ */
+
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +13,7 @@ public class TwineData
 	public List<TwineNode> Data = new List<TwineNode>();
 	TwineNode current;
 
+    // Creates the nodes and leaves all content together.
 	public TwineData(List <string> data)
 	{
 		for(int i = 0; i < data.Count; i++)
@@ -21,6 +27,8 @@ public class TwineData
 			}
 		}
 	}
+    
+    // Create the nodes with multiple pieces of content, such as a speaker and what she's saying.
 	public TwineData(List <string> data, string[] split)
 	{
 		for(int i = 0; i < data.Count; i++)
@@ -52,18 +60,7 @@ public class TwineData
 	{
 		for(int i = 0; i < Data.Count; i++)
 		{
-            /*try
-            {
-                if (Int32.Parse(link) == Int32.Parse(Data[i].Passage))
-                {
-					current = Data[i];
-                    break;
-                }
-            }
-			catch
-			{
-
-			}*/
+            
 			if(link.Trim() == Data[i].Passage.Trim())
 			{
 				current = Data[i];

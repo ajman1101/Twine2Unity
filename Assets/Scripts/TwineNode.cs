@@ -1,7 +1,44 @@
-﻿using UnityEngine;
+﻿/*
+ * Personalized data structure to hold different portions of a twine game
+ * Can be personalized to include more or less information, but currently has a speaker, passage(title), content(what is being said), a linkTitle, and a link
+ *
+ */
+
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+
+// a struct to keep linkTitles and their links together
+struct Links
+{
+    private string linkTitle;
+    private string link;
+    
+    public string LinkTitle
+    {
+        get
+        {
+            return linkTitle;
+        }
+        set
+        {
+            linkTitle = value;
+        }
+    }
+    public string Link
+    {
+        get
+        {
+            return link;
+        }
+        set
+        {
+            link = value;
+        }
+    }
+}
 
 public class TwineNode
 {
@@ -9,9 +46,12 @@ public class TwineNode
 	List<string> content = new List<string>();
 	List<string> speaker = new List<string>();
 	List<string> linkTitles = new List<string>();
-	List<string> links = new List<string>();
+    List<string> linkTitles = new list<string>();
+	List<Links> links = new List<Links>();
 	string nextPassage;
-
+    
+    
+    // accessors so we can get/set the data as needed
 	public string Passage {get{return passage;} set{passage = value;}}
 	public List<string> Content {get{return content;} set{content = value;}}
 	public List<string> Speaker {get{return speaker;} set{speaker = value;}}
@@ -87,7 +127,9 @@ public class TwineNode
 	}
 
 	public string NextPassage {get{return nextPassage;} set{nextPassage = value;}}
-
+    
+    
+    // If all of the content of a TwineNode can be displayed at once, use this constructor
 	public TwineNode(string data)
 	{
 		if (data.IndexOf("[[") != -1)
@@ -114,7 +156,12 @@ public class TwineNode
             	content.Add(data);
             }
 	}
-
+    
+    /* Split is needed if you're want a portion of the content seperated off.
+     * We used this so we could show the speaker in a seperate location from what they were saying
+     * It could be used for anything, another group is using it as part of their inventory system,
+     * in order fo a specific choice to be available a certain item is required
+     */
 	public TwineNode(string data, string[] split)
 	{
 		if (data.IndexOf("[[") != -1)
@@ -174,7 +221,7 @@ public class TwineNode
 			{
 				tempContent = data.Substring(endPassage);
 			}
-			string[] temp = tempContent.Split (split, StringSplitOptions.RemoveEmptyEntries);
+			string[] temp = tempContent.Split(split, StringSplitOptions.RemoveEmptyEntries);
 			if (temp.Length >= 2 && (temp.Length%2) == 0)
 			{
 				int startSpeaker = temp[0].IndexOf("\r\n")+1;
